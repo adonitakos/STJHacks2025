@@ -1,4 +1,4 @@
-# Coding Analytics Dashboard
+# Lock-In AI
 
 A VS Code extension that monitors your coding activity and provides insights into your coding habits.
 
@@ -19,8 +19,8 @@ A VS Code extension that monitors your coding activity and provides insights int
 
 1. The extension automatically starts tracking when you open files in VS Code
 2. To view your coding analytics:
-   - Click on the Coding Analytics icon in the activity bar
-   - Or use the command palette (Ctrl+Shift+P or Cmd+Shift+P) and type "Show Coding Analytics Dashboard"
+   - Click on the Lock-In AI icon in the activity bar
+   - Or use the command palette (Ctrl+Shift+P or Cmd+Shift+P) and type "Show Lock-In AI Dashboard"
 
 ## Data Privacy
 

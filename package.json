@@ -1,6 +1,6 @@
 {
-  "name": "coding-analytics",
-  "displayName": "Coding Analytics Dashboard",
+  "name": "lock-in-ai",
+  "displayName": "Lock-In AI",
   "description": "Monitor coding activity and analyze code quality",
   "version": "0.0.1",
   "publisher": "Studenthacks",
@@ -15,21 +15,27 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "commands": [
+      {
+        "command": "lockInAI.showDashboard",
+        "title": "Show Lock-In AI Dashboard"
+      }
+    ],
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "coding-analytics",
-          "title": "Coding Analytics",
+          "id": "lock-in-ai",
+          "title": "Lock-In AI",
           "icon": "resources/analytics.svg"
         }
       ]
     },
     "views": {
-      "coding-analytics": [
+      "lock-in-ai": [
         {
           "type": "webview",
-          "id": "codingAnalytics.dashboard",
-          "name": "Coding Analytics Dashboard"
+          "id": "lockInAI.dashboard",
+          "name": "Lock-In AI Dashboard"
         }
       ]
     }

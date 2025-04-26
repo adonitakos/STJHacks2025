@@ -92,8 +92,8 @@ export function activate(context: vscode.ExtensionContext) {
     // Create and show the dashboard
     const createDashboard = () => {
         const panel = vscode.window.createWebviewPanel(
-            'codingAnalytics.dashboard',
-            'Coding Analytics Dashboard',
+            'lockInAI.dashboard',
+            'Lock-In AI Dashboard',
             vscode.ViewColumn.One,
             {
                 enableScripts: true,
@@ -104,11 +104,32 @@ export function activate(context: vscode.ExtensionContext) {
         const dailyStats = calculateDailyStats();
         
         panel.webview.html = getWebviewContent(dailyStats);
+
+        // Handle messages from the webview
+        panel.webview.onDidReceiveMessage(
+            message => {
+                switch (message.command) {
+                    case 'openLocalhost':
+                        vscode.env.openExternal(vscode.Uri.parse(message.url));
+                        return;
+                }
+            },
+            undefined,
+            context.subscriptions
+        );
+
+        // Update the webview content when the panel becomes visible
+        panel.onDidChangeViewState(e => {
+            if (e.webviewPanel.visible) {
+                const updatedStats = calculateDailyStats();
+                panel.webview.html = getWebviewContent(updatedStats);
+            }
+        });
     };
 
     // Register commands and event listeners
     context.subscriptions.push(
-        vscode.commands.registerCommand('codingAnalytics.showDashboard', createDashboard),
+        vscode.commands.registerCommand('lockInAI.showDashboard', createDashboard),
         vscode.workspace.onDidOpenTextDocument(startTracking),
         vscode.workspace.onDidCloseTextDocument(() => {
             if (currentSession) {
@@ -128,48 +149,68 @@ function getWebviewContent(dailyStats: DailyStats[]): string {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Coding Analytics Dashboard</title>
+            <title>Lock-In AI Dashboard</title>
             <style>
                 body {
-                    font-family: Arial, sans-serif;
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
                     padding: 20px;
                     background-color: var(--vscode-editor-background);
                     color: var(--vscode-editor-foreground);
                 }
                 .stats-container {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                    display: flex;
+                    flex-direction: column;
                     gap: 20px;
-                    margin-top: 20px;
                 }
                 .stat-card {
                     background-color: var(--vscode-sideBar-background);
-                    padding: 20px;
-                    border-radius: 8px;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                    padding: 15px;
+                    border-radius: 5px;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                 }
-                h1, h2 {
-                    color: var(--vscode-editor-foreground);
+                .stat-title {
+                    font-size: 14px;
+                    color: var(--vscode-descriptionForeground);
+                    margin-bottom: 5px;
                 }
-                .chart-container {
-                    width: 100%;
-                    height: 300px;
+                .stat-value {
+                    font-size: 24px;
+                    font-weight: bold;
+                }
+                .button {
+                    background-color: var(--vscode-button-background);
+                    color: var(--vscode-button-foreground);
+                    border: none;
+                    padding: 8px 16px;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    font-size: 14px;
                     margin-top: 20px;
+                }
+                .button:hover {
+                    background-color: var(--vscode-button-hoverBackground);
                 }
             </style>
         </head>
         <body>
-            <h1>Coding Analytics Dashboard</h1>
             <div class="stats-container">
                 ${dailyStats.map(stat => `
                     <div class="stat-card">
-                        <h2>${stat.date}</h2>
-                        <p>Total Hours: ${stat.totalHours.toFixed(2)}</p>
-                        <p>Files Edited: ${stat.filesEdited.length}</p>
-                        <p>Languages Used: ${stat.languagesUsed.join(', ')}</p>
+                        <div class="stat-title">${stat.date}</div>
+                        <div class="stat-value">${stat.totalHours.toFixed(1)} hours</div>
                     </div>
                 `).join('')}
+                <button class="button" onclick="openLocalhost()">Open Localhost</button>
             </div>
+            <script>
+                const vscode = acquireVsCodeApi();
+                function openLocalhost() {
+                    vscode.postMessage({
+                        command: 'openLocalhost',
+                        url: 'http://localhost:3000'
+                    });
+                }
+            </script>
         </body>
         </html>
     `;

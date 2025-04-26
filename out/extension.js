@@ -70,15 +70,22 @@ function activate(context) {
     };
     // Create and show the dashboard
     const createDashboard = () => {
-        const panel = vscode.window.createWebviewPanel('codingAnalytics.dashboard', 'Coding Analytics Dashboard', vscode.ViewColumn.One, {
+        const panel = vscode.window.createWebviewPanel('lockInAI.dashboard', 'Lock-In AI Dashboard', vscode.ViewColumn.One, {
             enableScripts: true,
             retainContextWhenHidden: true
         });
         const dailyStats = calculateDailyStats();
         panel.webview.html = getWebviewContent(dailyStats);
+        // Update the webview content when the panel becomes visible
+        panel.onDidChangeViewState(e => {
+            if (e.webviewPanel.visible) {
+                const updatedStats = calculateDailyStats();
+                panel.webview.html = getWebviewContent(updatedStats);
+            }
+        });
     };
     // Register commands and event listeners
-    context.subscriptions.push(vscode.commands.registerCommand('codingAnalytics.showDashboard', createDashboard), vscode.workspace.onDidOpenTextDocument(startTracking), vscode.workspace.onDidCloseTextDocument(() => {
+    context.subscriptions.push(vscode.commands.registerCommand('lockInAI.showDashboard', createDashboard), vscode.workspace.onDidOpenTextDocument(startTracking), vscode.workspace.onDidCloseTextDocument(() => {
         if (currentSession) {
             currentSession.endTime = Date.now();
             codingSessions.push(currentSession);
@@ -95,7 +102,7 @@ function getWebviewContent(dailyStats) {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Coding Analytics Dashboard</title>
+            <title>Lock-In AI Dashboard</title>
             <style>
                 body {
                     font-family: Arial, sans-serif;
@@ -123,20 +130,32 @@ function getWebviewContent(dailyStats) {
                     height: 300px;
                     margin-top: 20px;
                 }
+                .no-data {
+                    text-align: center;
+                    padding: 40px;
+                    color: var(--vscode-descriptionForeground);
+                }
             </style>
         </head>
         <body>
-            <h1>Coding Analytics Dashboard</h1>
-            <div class="stats-container">
-                ${dailyStats.map(stat => `
-                    <div class="stat-card">
-                        <h2>${stat.date}</h2>
-                        <p>Total Hours: ${stat.totalHours.toFixed(2)}</p>
-                        <p>Files Edited: ${stat.filesEdited.length}</p>
-                        <p>Languages Used: ${stat.languagesUsed.join(', ')}</p>
-                    </div>
-                `).join('')}
-            </div>
+            <h1>Lock-In AI Dashboard</h1>
+            ${dailyStats.length > 0 ? `
+                <div class="stats-container">
+                    ${dailyStats.map(stat => `
+                        <div class="stat-card">
+                            <h2>${stat.date}</h2>
+                            <p>Total Hours: ${stat.totalHours.toFixed(2)}</p>
+                            <p>Files Edited: ${stat.filesEdited.length}</p>
+                            <p>Languages Used: ${stat.languagesUsed.join(', ')}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            ` : `
+                <div class="no-data">
+                    <h2>No coding data available yet</h2>
+                    <p>Start coding to see your analytics!</p>
+                </div>
+            `}
         </body>
         </html>
     `;
