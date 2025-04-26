@@ -1,0 +1,63 @@
+{
+  "name": "coding-analytics",
+  "displayName": "Coding Analytics Dashboard",
+  "description": "Monitor coding activity and analyze code quality",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "coding-analytics",
+          "title": "Coding Analytics",
+          "icon": "resources/analytics.svg"
+        }
+      ]
+    },
+    "views": {
+      "coding-analytics": [
+        {
+          "type": "webview",
+          "id": "codingAnalytics.dashboard",
+          "name": "Coding Analytics Dashboard"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/node": "^16.18.126",
+    "@types/vscode": "^1.99.1",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "eslint": "^8.57.1",
+    "typescript": "^4.9.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adonitakos/STJHacks2025.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adonitakos/STJHacks2025/issues"
+  },
+  "homepage": "https://github.com/adonitakos/STJHacks2025#readme"
+}
