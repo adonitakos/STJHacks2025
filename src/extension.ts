@@ -3,6 +3,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
+import { OpenAI } from '@langchain/openai';
 
 // In-memory storage for tracking metrics
 let codingTimeToday = 0;
@@ -45,12 +46,46 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	}, 60000); // Every minute
 
+	// Listen for text selection changes
+	context.subscriptions.push(
+		vscode.window.onDidChangeTextEditorSelection(async (event) => {
+			const editor = event.textEditor;
+			const selection = editor.selection;
+			const selectedText = editor.document.getText(selection);
+			if (selectedText) {
+				const { complexity, suggestions } = await analyzeCodeWithOpenAI(selectedText);
+				provider.postMessageToWebview({
+					type: 'analysis',
+					complexity,
+					suggestions
+				});
+			}
+		})
+	);
+
 	context.subscriptions.push({ dispose: () => clearInterval(updateInterval) });
 }
 
 function startTracking() {
 	isTracking = true;
 	lastActive = Date.now();
+}
+
+async function analyzeCodeWithOpenAI(code: string): Promise<{ complexity: string, suggestions: string }> {
+	// Leave credentials empty for now
+	const openAIApiKey = '';
+	if (!openAIApiKey) {
+		return { complexity: 'N/A', suggestions: 'N/A' };
+	}
+	try {
+		const model = new OpenAI({ openAIApiKey });
+		const prompt = `Analyze the following code and provide its computational complexity and suggestions for improvement.\nCode:\n${code}`;
+		const response = await model.call(prompt);
+		// You may want to parse the response for complexity and suggestions
+		return { complexity: response, suggestions: response };
+	} catch (error) {
+		return { complexity: 'N/A', suggestions: 'N/A' };
+	}
 }
 
 class DashboardViewProvider implements vscode.WebviewViewProvider {
@@ -77,6 +112,12 @@ class DashboardViewProvider implements vscode.WebviewViewProvider {
 	public updateWebview() {
 		if (this._view) {
 			this._view.webview.html = this.getHtmlForWebview();
+		}
+	}
+
+	public postMessageToWebview(message: any) {
+		if (this._view) {
+			this._view.webview.postMessage(message);
 		}
 	}
 
