@@ -184,5 +184,359 @@
     "endTime": 1745693343091,
     "filePath": "/Users/Allan/Desktop/STJHacks2025/random.py",
     "language": "python"
+  },
+  {
+    "startTime": 1745693363436,
+    "endTime": 1745693364014,
+    "filePath": "git/scm0/input",
+    "language": "scminput"
+  },
+  {
+    "startTime": 1745693364014,
+    "endTime": 1745693364015,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package.json.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745694189694,
+    "endTime": 1745694190309,
+    "filePath": "git/scm0/input",
+    "language": "scminput"
+  },
+  {
+    "startTime": 1745694190309,
+    "endTime": 1745694242025,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package.json.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745694868624,
+    "endTime": 1745694869067,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/src/extension.ts",
+    "language": "typescript"
+  },
+  {
+    "startTime": 1745694998760,
+    "endTime": 1745694998762,
+    "filePath": "/Users/Allan/Library/Application Support/Code/User/settings.json",
+    "language": "jsonc"
+  },
+  {
+    "startTime": 1745695000142,
+    "endTime": 1745695000927,
+    "filePath": "git/scm0/input",
+    "language": "scminput"
+  },
+  {
+    "startTime": 1745695000928,
+    "endTime": 1745695258708,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/src/extension.ts.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745695258709,
+    "endTime": 1745695258718,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/node_modules/@types/vscode/index.d.ts",
+    "language": "typescript"
+  },
+  {
+    "startTime": 1745695262429,
+    "endTime": 1745695265028,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package.json.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745695280505,
+    "endTime": 1745695281130,
+    "filePath": "git/scm0/input",
+    "language": "scminput"
+  },
+  {
+    "startTime": 1745695281131,
+    "endTime": 1745695284467,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/src/extension.ts.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745695302300,
+    "endTime": 1745695302301,
+    "filePath": "/Users/Allan/Library/Application Support/Code/User/settings.json",
+    "language": "jsonc"
+  },
+  {
+    "startTime": 1745695303662,
+    "endTime": 1745695304500,
+    "filePath": "git/scm0/input",
+    "language": "scminput"
+  },
+  {
+    "startTime": 1745695304501,
+    "endTime": 1745695307062,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/src/extension.ts.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745695307664,
+    "endTime": 1745695488618,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package.json",
+    "language": "json"
+  },
+  {
+    "startTime": 1745695912722,
+    "endTime": 1745696211485,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/src/extension.ts.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745696211486,
+    "endTime": 1745696211765,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package.json",
+    "language": "json"
+  },
+  {
+    "startTime": 1745696211765,
+    "endTime": 1745696213104,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package.json.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745696213366,
+    "endTime": 1745696224916,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/src/extension.ts.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745696224916,
+    "endTime": 1745696225195,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package-lock.json",
+    "language": "json"
+  },
+  {
+    "startTime": 1745696225196,
+    "endTime": 1745696226752,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package-lock.json.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745696254162,
+    "endTime": 1745696255725,
+    "filePath": "git/scm0/input",
+    "language": "scminput"
+  },
+  {
+    "startTime": 1745696255727,
+    "endTime": 1745696255781,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/LICENSE.txt",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745696255781,
+    "endTime": 1745696256003,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package.json",
+    "language": "json"
+  },
+  {
+    "startTime": 1745696256003,
+    "endTime": 1745696256420,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/LICENSE.txt.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745696257384,
+    "endTime": 1745696257660,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package-lock 2.json",
+    "language": "json"
+  },
+  {
+    "startTime": 1745696257660,
+    "endTime": 1745696259559,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package-lock 2.json.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745696259560,
+    "endTime": 1745696259650,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package-lock.json",
+    "language": "json"
+  },
+  {
+    "startTime": 1745696259651,
+    "endTime": 1745696265092,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package-lock.json.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745696265352,
+    "endTime": 1745696273272,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package.json.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745696273272,
+    "endTime": 1745696273546,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package-lock 2.json",
+    "language": "json"
+  },
+  {
+    "startTime": 1745696273547,
+    "endTime": 1745696341451,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package-lock 2.json.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745696358918,
+    "endTime": 1745696359266,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package-lock 2.json.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745696371846,
+    "endTime": 1745696373608,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package-lock 2.json.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745696385590,
+    "endTime": 1745696388345,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package-lock 2.json.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745696389565,
+    "endTime": 1745696393814,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package-lock 2.json.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745696422779,
+    "endTime": 1745696423259,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package-lock 2.json.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745696435139,
+    "endTime": 1745696440652,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package-lock 2.json.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745696443952,
+    "endTime": 1745696444805,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package-lock 2.json.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745696448127,
+    "endTime": 1745696452016,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package-lock 2.json.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745696452017,
+    "endTime": 1745696452294,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/LICENSE.txt",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745696452295,
+    "endTime": 1745696453244,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/LICENSE.txt.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745696453814,
+    "endTime": 1745696454081,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package-lock.json",
+    "language": "json"
+  },
+  {
+    "startTime": 1745696454082,
+    "endTime": 1745696465509,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package-lock.json.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745696227015,
+    "endTime": 1745696520823,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/src/extension.ts.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745696520825,
+    "endTime": 1745696561782,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/complexitytest.py",
+    "language": "python"
+  },
+  {
+    "startTime": 1745696561782,
+    "endTime": 1745696562213,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/src/extension.ts.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745696981257,
+    "endTime": 1745696981258,
+    "filePath": "/Users/Allan/Library/Application Support/Code/User/settings.json",
+    "language": "jsonc"
+  },
+  {
+    "startTime": 1745696982975,
+    "endTime": 1745696983497,
+    "filePath": "git/scm0/input",
+    "language": "scminput"
+  },
+  {
+    "startTime": 1745696983498,
+    "endTime": 1745696987830,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/src/extension.ts.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745697007428,
+    "endTime": 1745697022529,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package.json",
+    "language": "json"
+  },
+  {
+    "startTime": 1745697022530,
+    "endTime": 1745697032337,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/src/extension.ts.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745697432079,
+    "endTime": 1745697432080,
+    "filePath": "/Users/Allan/Library/Application Support/Code/User/settings.json",
+    "language": "jsonc"
+  },
+  {
+    "startTime": 1745697434070,
+    "endTime": 1745697434784,
+    "filePath": "git/scm0/input",
+    "language": "scminput"
+  },
+  {
+    "startTime": 1745697434784,
+    "endTime": 1745697437898,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/src/extension.ts.git",
+    "language": "plaintext"
+  },
+  {
+    "startTime": 1745697444054,
+    "endTime": 1745697444055,
+    "filePath": "/Users/Allan/Library/Application Support/Code/User/settings.json",
+    "language": "jsonc"
+  },
+  {
+    "startTime": 1745697445850,
+    "endTime": 1745697446311,
+    "filePath": "git/scm0/input",
+    "language": "scminput"
+  },
+  {
+    "startTime": 1745697446312,
+    "endTime": 1745697453538,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/src/extension.ts.git",
+    "language": "plaintext"
   }
 ]
