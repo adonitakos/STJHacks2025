@@ -2,7 +2,7 @@
   "name": "lock-in-ai",
   "displayName": "Lock-In AI",
   "description": "Monitor coding activity and analyze code quality",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "publisher": "Studenthacks",
   "engines": {
     "vscode": "^1.99.0"
@@ -19,6 +19,10 @@
       {
         "command": "lockInAI.showDashboard",
         "title": "Show Lock-In AI Dashboard"
+      },
+      {
+        "command": "lockInAI.startServer",
+        "title": "Start Lock-In AI Server"
       }
     ],
     "viewsContainers": {
@@ -47,6 +51,9 @@
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js"
+  },
+  "dependencies": {
+    "http": "^0.0.1-security"
   },
   "devDependencies": {
     "@types/node": "^16.18.126",

@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
+import { createServer, IncomingMessage, ServerResponse } from 'http';
 
 interface CodingSession {
     startTime: number;
@@ -16,12 +17,23 @@ interface DailyStats {
     languagesUsed: string[];
 }
 
+// Format time display
+function formatTime(hours: number): string {
+    if (hours < 1) {
+        const minutes = Math.floor(hours * 60);
+        const seconds = Math.floor((hours * 3600) % 60);
+        return `${minutes}m ${seconds}s`;
+    }
+    return `${hours.toFixed(1)} hours`;
+}
+
 export function activate(context: vscode.ExtensionContext) {
     console.log('Lock-In AI extension is now active!');
 
     const statsFile = path.join(context.globalStorageUri.fsPath, 'coding_stats.json');
     let codingSessions: CodingSession[] = [];
     let currentSession: CodingSession | null = null;
+    let localhostServer: ReturnType<typeof createServer> | null = null;
 
     // Create stats file if it doesn't exist
     if (!fs.existsSync(context.globalStorageUri.fsPath)) {
@@ -34,7 +46,6 @@ export function activate(context: vscode.ExtensionContext) {
             codingSessions = JSON.parse(fs.readFileSync(statsFile, 'utf8'));
         } catch (error) {
             console.error('Error loading stats:', error);
-            vscode.window.showErrorMessage('Failed to load coding statistics. Starting fresh.');
         }
     }
 
@@ -60,7 +71,6 @@ export function activate(context: vscode.ExtensionContext) {
             fs.writeFileSync(statsFile, JSON.stringify(codingSessions, null, 2));
         } catch (error) {
             console.error('Error saving stats:', error);
-            vscode.window.showErrorMessage('Failed to save coding statistics.');
         }
     };
 
@@ -93,58 +103,52 @@ export function activate(context: vscode.ExtensionContext) {
         return Object.values(stats).sort((a, b) => b.date.localeCompare(a.date));
     };
 
-    // Create and show the dashboard
-    const createDashboard = () => {
-        try {
-            const panel = vscode.window.createWebviewPanel(
-                'lockInAI.dashboard',
-                'Lock-In AI Dashboard',
-                vscode.ViewColumn.One,
-                {
-                    enableScripts: true,
-                    retainContextWhenHidden: true,
-                    localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'media'))]
-                }
-            );
-
-            const dailyStats = calculateDailyStats();
-            
-            panel.webview.html = getWebviewContent(dailyStats);
-
-            // Handle messages from the webview
-            panel.webview.onDidReceiveMessage(
-                message => {
-                    switch (message.command) {
-                        case 'openLocalhost':
-                            vscode.env.openExternal(vscode.Uri.parse(message.url))
-                                .then(success => {
-                                    if (!success) {
-                                        vscode.window.showErrorMessage('Failed to open localhost URL');
-                                    }
-                                });
-                            return;
-                    }
-                },
-                undefined,
-                context.subscriptions
-            );
-
-            // Update the webview content when the panel becomes visible
-            panel.onDidChangeViewState(e => {
-                if (e.webviewPanel.visible) {
-                    const updatedStats = calculateDailyStats();
-                    panel.webview.html = getWebviewContent(updatedStats);
-                }
-            });
-        } catch (error) {
-            console.error('Error creating dashboard:', error);
-            vscode.window.showErrorMessage('Failed to create dashboard. Please try again.');
+    // Start localhost server
+    const startLocalhostServer = () => {
+        if (localhostServer) {
+            return;
         }
+
+        localhostServer = createServer((req: IncomingMessage, res: ServerResponse) => {
+            // Enable CORS
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+            res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+            if (req.method === 'OPTIONS') {
+                res.writeHead(200);
+                res.end();
+                return;
+            }
+
+            if (req.url === '/stats') {
+                const stats = calculateDailyStats();
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify(stats));
+            } else if (req.url === '/current-session') {
+                const currentStats = currentSession ? {
+                    startTime: currentSession.startTime,
+                    duration: (Date.now() - currentSession.startTime) / (1000 * 60 * 60),
+                    filePath: currentSession.filePath,
+                    language: currentSession.language
+                } : null;
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify(currentStats));
+            } else {
+                res.writeHead(404);
+                res.end();
+            }
+        });
+
+        localhostServer.listen(3000, () => {
+            console.log('Lock-In AI API server running on port 3000');
+            vscode.window.showInformationMessage('Lock-In AI API server is running on port 3000');
+        });
     };
 
     // Register commands and event listeners
     context.subscriptions.push(
-        vscode.commands.registerCommand('lockInAI.showDashboard', createDashboard),
+        vscode.commands.registerCommand('lockInAI.startServer', startLocalhostServer),
         vscode.workspace.onDidOpenTextDocument(startTracking),
         vscode.workspace.onDidCloseTextDocument(() => {
             if (currentSession) {
@@ -155,93 +159,6 @@ export function activate(context: vscode.ExtensionContext) {
             }
         })
     );
-}
-
-function getWebviewContent(dailyStats: DailyStats[]): string {
-    return `<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Lock-In AI Dashboard</title>
-        <style>
-            body {
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-                padding: 20px;
-                background-color: var(--vscode-editor-background);
-                color: var(--vscode-editor-foreground);
-            }
-            .stats-container {
-                display: flex;
-                flex-direction: column;
-                gap: 20px;
-            }
-            .stat-card {
-                background-color: var(--vscode-sideBar-background);
-                padding: 15px;
-                border-radius: 5px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-            .stat-title {
-                font-size: 14px;
-                color: var(--vscode-descriptionForeground);
-                margin-bottom: 5px;
-            }
-            .stat-value {
-                font-size: 24px;
-                font-weight: bold;
-            }
-            .button {
-                background-color: var(--vscode-button-background);
-                color: var(--vscode-button-foreground);
-                border: none;
-                padding: 8px 16px;
-                border-radius: 4px;
-                cursor: pointer;
-                font-size: 14px;
-                margin-top: 20px;
-                transition: background-color 0.2s;
-            }
-            .button:hover {
-                background-color: var(--vscode-button-hoverBackground);
-            }
-            .button:disabled {
-                opacity: 0.5;
-                cursor: not-allowed;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="stats-container">
-            ${dailyStats.length > 0 ? dailyStats.map(stat => `
-                <div class="stat-card">
-                    <div class="stat-title">${stat.date}</div>
-                    <div class="stat-value">${stat.totalHours.toFixed(1)} hours</div>
-                </div>
-            `).join('') : `
-                <div class="stat-card">
-                    <div class="stat-title">No coding data available yet</div>
-                    <div class="stat-value">Start coding to see your analytics!</div>
-                </div>
-            `}
-            <button class="button" onclick="openLocalhost()">Open Local Dashboard</button>
-        </div>
-        <script>
-            const vscode = acquireVsCodeApi();
-            function openLocalhost() {
-                const button = document.querySelector('.button');
-                button.disabled = true;
-                vscode.postMessage({
-                    command: 'openLocalhost',
-                    url: 'http://localhost:3000'
-                });
-                setTimeout(() => {
-                    button.disabled = false;
-                }, 2000);
-            }
-        </script>
-    </body>
-    </html>`;
 }
 
 export function deactivate() {
