@@ -2,7 +2,7 @@
   "name": "lock-in-ai",
   "displayName": "Lock-In AI",
   "description": "Monitor coding activity and analyze code quality",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "Studenthacks",
   "engines": {
     "vscode": "^1.99.0"
