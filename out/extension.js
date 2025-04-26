@@ -40,7 +40,7 @@ function activate(context) {
     // Start tracking when the extension activates
     startTracking();
     // Register the command to open detailed analytics in browser
-    context.subscriptions.push(vscode.commands.registerCommand('stjhacks2025.openDetailedAnalytics', () => {
+    context.subscriptions.push(vscode.commands.registerCommand('lockInAI.showDashboard', () => {
         const port = 3000; // Port for local server
         vscode.env.openExternal(vscode.Uri.parse(`http://localhost:${port}`));
         vscode.window.showInformationMessage('Opening detailed analytics in browser...');
@@ -198,7 +198,7 @@ class DashboardViewProvider {
 		</html>`;
     }
 }
-DashboardViewProvider.viewType = 'stjhacks2025.dashboardView';
+DashboardViewProvider.viewType = 'lockInAI.dashboard';
 // This method is called when your extension is deactivated
 function deactivate() {
     isTracking = false;

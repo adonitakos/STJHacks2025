@@ -25,7 +25,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// Register the command to open detailed analytics in browser
 	context.subscriptions.push(
-		vscode.commands.registerCommand('stjhacks2025.openDetailedAnalytics', () => {
+		vscode.commands.registerCommand('lockInAI.showDashboard', () => {
 			const port = 3000; // Port for local server
 			vscode.env.openExternal(vscode.Uri.parse(`http://localhost:${port}`));
 			vscode.window.showInformationMessage('Opening detailed analytics in browser...');
@@ -54,7 +54,7 @@ function startTracking() {
 }
 
 class DashboardViewProvider implements vscode.WebviewViewProvider {
-	public static readonly viewType = 'stjhacks2025.dashboardView';
+	public static readonly viewType = 'lockInAI.dashboard';
 	private _view?: vscode.WebviewView;
 
 	constructor(private readonly _extensionUri: vscode.Uri) {}

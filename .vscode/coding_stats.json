@@ -538,5 +538,17 @@
     "endTime": 1745697453538,
     "filePath": "/Users/Allan/Desktop/STJHacks2025/src/extension.ts.git",
     "language": "plaintext"
+  },
+  {
+    "startTime": 1745697453539,
+    "endTime": 1745697476783,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package.json",
+    "language": "json"
+  },
+  {
+    "startTime": 1745697476783,
+    "endTime": 1745697573117,
+    "filePath": "/Users/Allan/Desktop/STJHacks2025/package.json.git",
+    "language": "plaintext"
   }
 ]
